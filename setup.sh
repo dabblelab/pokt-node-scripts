@@ -38,7 +38,7 @@ else
 fi
 
 # 3. install go lang
-su - pocket
+sudo su - pocket
 wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
 tar -xvf go1.17.7.linux-amd64.tar.gz
 
