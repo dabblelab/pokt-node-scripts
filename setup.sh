@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# 1. update the system packages
-apt update && apt dist-upgrade -y
-
-# 2. install dependancies
+# 1. install dependancies
 apt install git -y
 apt install build-essential -y
 apt install curl -y
@@ -14,9 +11,9 @@ apt install nginx -y
 apt install certbot -y
 apt install python3-certbot-nginx -y
 
-# 3. add a user for pocket
+# 2. add a user for pocket
 USERNAME=pocket
-PASSWORD=ChangeMe01!
+PASSWORD=$(openssl rand -hex 7)
 
 if [ $(id -u) -eq 0 ]; then
 	egrep "^$USERNAME" /etc/passwd >/dev/null
@@ -34,7 +31,7 @@ else
 	exit 2
 fi
 
-# 4. install go lang
+# 3. install go lang
 su - pocket && cd ~
 
 wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
@@ -46,7 +43,7 @@ echo 'export GOBIN=$HOME/go/bin' >> ~/.profile
 source ~/.profile
 go version
 
-# 5. install pocket core
+# 4. install pocket core
 su - pocket && cd ~
 
 mkdir -p $GOPATH/src/github.com/pokt-network
@@ -57,12 +54,12 @@ git checkout tags/RC-0.7.1.1
 go build -o $GOPATH/bin/pocket $GOPATH/src/github.com/pokt-network/pocket-core/app/cmd/pocket_core/main.go
 pocket version
 
-# 6. set ulimits
+# 5. set ulimits
 ulimit -Sn 16384
 echo "pocket           soft    nofile          16384" >> /etc/security/limits.conf
 ulimit -n
 
-# 7. configure firewall
+# 6. configure firewall
 yes | ufw enable
 ufw allow ssh
 ufw allow 80
@@ -71,7 +68,7 @@ ufw allow 8081
 ufw allow 26656
 ufw status
 
-# 8. create config.json
+# 7. create config.json
 su - pocket && cd ~
 
 mkdir -p ~/.pocket/config
@@ -79,12 +76,12 @@ touch ~/.pocket/config/config.json
 
 echo $(pocket util print-configs) | jq '.tendermint_config.P2P.Seeds = "03b74fa3c68356bb40d58ecc10129479b159a145@seed1.mainnet.pokt.network:20656,64c91701ea98440bc3674fdb9a99311461cdfd6f@seed2.mainnet.pokt.network:21656,0057ee693f3ce332c4ffcb499ede024c586ae37b@seed3.mainnet.pokt.network:22856,9fd99b89947c6af57cd0269ad01ecb99960177cd@seed4.mainnet.pokt.network:23856,1243026603e9073507a3157bc4de99da74a078fc@seed5.mainnet.pokt.network:24856,6282b55feaff460bb35820363f1eb26237cf5ac3@seed6.mainnet.pokt.network:25856,3640ee055889befbc912dd7d3ed27d6791139395@seed7.mainnet.pokt.network:26856,1951cded4489bf51af56f3dbdd6df55c1a952b1a@seed8.mainnet.pokt.network:27856,a5f4a4cd88db9fd5def1574a0bffef3c6f354a76@seed9.mainnet.pokt.network:28856,d4039bd71d48def9f9f61f670c098b8956e52a08@seed10.mainnet.pokt.network:29856,5c133f07ed296bb9e21e3e42d5f26e0f7d2b2832@poktseed100.chainflow.io:26656"' | jq '.pocket_config.rpc_timeout = 15000' | jq '.pocket_config.rpc_port = "8082"' | jq '.pocket_config.remote_cli_url = "http://localhost:8082"' | jq . > ~/.pocket/config/config.json
 
-# 9. get genesis.json
+# 8. get genesis.json
 cd ~/.pocket/config
 
 wget https://raw.githubusercontent.com/pokt-network/pocket-network-genesis/master/mainnet/genesis.json
 
-# 10. create chains.json
+# 9. create chains.json
 su - pocket && cd ~
 
 export CHAINS_JSON=$(cat <<EOF
@@ -103,7 +100,7 @@ EOF
 
 cd ~/.pocket/config/ && envsubst <<< "$CHAINS_JSON" > "chains.json"
 
-# 11. create a pocket account and set validator address
+# 10. create a pocket account and set validator address
 su - pocket && cd ~
 
 # NOTE: this creates an account with a blank/empty passphrase
@@ -120,7 +117,7 @@ printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
 echo "Acccount: $ACCOUNT"
 su - root
 
-# 12. create and enable systemd service
+# 11. create and enable systemd service
 export POCKET_SERVICE=$(cat <<EOF
 [Unit]
 Description=Pocket service
@@ -215,3 +212,5 @@ systemctl stop nginx
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/pocket /etc/nginx/sites-enabled/pocket
 systemctl start nginx
+
+echo "Done!"
