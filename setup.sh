@@ -20,7 +20,7 @@ apt install python3-certbot-nginx -y
 # 2. add a user for pocket
 USERNAME=pocket
 PASSWORD=$(openssl rand -hex 7)
-
+pass=""
 if [ $(id -u) -eq 0 ]; then
 	egrep "^$USERNAME" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
