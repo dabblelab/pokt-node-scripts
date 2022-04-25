@@ -140,7 +140,6 @@ cd /etc/systemd/system/ && envsubst <<< "$POCKET_SERVICE" > "pocket.service"
 # -- start the pocket service --
 systemctl daemon-reload
 systemctl start pocket.service
-systemctl status pocket.service
 
 # 12. get an ssl cerfiticate
 certbot --nginx --domain $HOSTNAME --register-unsafely-without-email --no-redirect --agree-tos
