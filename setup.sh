@@ -20,7 +20,7 @@ apt install python3-certbot-nginx -y
 # 2. add a user for pocket
 USERNAME=pocket
 PASSWORD=$(openssl rand -hex 7)
-
+pass=""
 if [ $(id -u) -eq 0 ]; then
 	egrep "^$USERNAME" /etc/passwd >/dev/null
 	if [ $? -eq 0 ]; then
@@ -37,11 +37,14 @@ else
 	exit 2
 fi
 
-# 3. install go lang
-sudo su - pocket;
 
-wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
-tar -xvf go1.17.7.linux-amd64.tar.gz
+# sudo su - pocket;
+
+echo "$pass" | sudo -S  -i -u pocket
+
+# 3. install go lang
+echo "$pass" | sudo wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
+echo "$pass" | sudo tar -xvf go1.17.7.linux-amd64.tar.gz
 
 echo 'export PATH=$PATH:$HOME/go/bin' >> ~/.profile
 echo 'export GOPATH=$HOME/go' >> ~/.profile
@@ -123,13 +126,11 @@ export POCKET_SERVICE=$(cat <<EOF
 Description=Pocket service
 After=network.target
 Wants=network-online.target systemd-networkd-wait-online.service
-
 [Service]
 User=pocket
 Group=sudo
 ExecStart=/home/pocket/go/bin/pocket start
 ExecStop=/home/pocket/go/bin/pocket stodp
-
 [Install]
 WantedBy=default.target
 EOF
@@ -150,53 +151,38 @@ export NGINX_CONFIG=$(cat <<EOF
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
-
     root /var/www/html;
-
     index index.html index.htm index.nginx-debian.html;
-
     server_name _;
-
     location / {
         try_files $uri $uri/ =404;
     }
 }
-
 server {
     add_header Access-Control-Allow-Origin "*";
     listen 80 ;
     listen [::]:80 ;
     listen 8081 ssl;
     listen [::]:8081 ssl;
-
     root /var/www/html;
-
     index index.html index.htm index.nginx-debian.html;
-
     server_name $HOSTNAME;
-
     location / {
         try_files $uri $uri/ =404;
     }
-
     listen [::]:443 ssl ipv6only=on;
     listen 443 ssl;
-
     ssl_certificate /etc/letsencrypt/live/$HOSTNAME/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/$HOSTNAME/privkey.pem;
-
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
     access_log /var/log/nginx/reverse-access.log;
     error_log /var/log/nginx/reverse-error.log;
-
     location ~* ^/v1/client/(dispatch|relay|challenge|sim) {
         proxy_pass http://127.0.0.1:8082;
         add_header Access-Control-Allow-Methods "POST, OPTIONS";
         allow all;
     }
-
     location = /v1 {
         add_header Access-Control-Allow-Methods "GET";
         proxy_pass http://127.0.0.1:8082;
