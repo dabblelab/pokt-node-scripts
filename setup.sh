@@ -139,6 +139,7 @@ cd /etc/systemd/system/ && envsubst <<< "$POCKET_SERVICE" > "pocket.service"
 
 # -- start the pocket service --
 systemctl daemon-reload
+systemctl enable pocket.service
 systemctl start pocket.service
 
 # 12. get an ssl cerfiticate
