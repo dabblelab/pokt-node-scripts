@@ -48,9 +48,9 @@ cd $HOME_DIR
 echo "$pass" | sudo wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
 echo "$pass" | sudo tar -xvf go1.17.7.linux-amd64.tar.gz
 echo "$pass" | sudo chown -R "$USERNAME" $HOME_DIR
-echo 'export PATH=$PATH:$HOME_DIR/go/bin' >> $HOME_DIR/.profile
-echo 'export GOPATH=$HOME_DIR/go' >> $HOME_DIR/.profile
-echo 'export GOBIN=$HOME_DIR/go/bin' >> $HOME_DIR/.profile
+echo "export PATH=$PATH:$HOME_DIR/go/bin" >> $HOME_DIR/.profile
+echo "export GOPATH=$HOME_DIR/go" >> $HOME_DIR/.profile
+echo "export GOBIN=$HOME_DIR/go/bin" >> $HOME_DIR/.profile
 source $HOME_DIR/.profile
 go version
 
