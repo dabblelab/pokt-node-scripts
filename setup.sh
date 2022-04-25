@@ -47,7 +47,7 @@ cd $HOME_DIR
 # 3. install go lang
 echo "$pass" | sudo wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
 echo "$pass" | sudo tar -xvf go1.17.7.linux-amd64.tar.gz
-
+echo "$pass" | sudo chown -R "$USERNAME" $HOME_DIR
 echo 'export PATH=$PATH:$HOME_DIR/go/bin' >> $HOME_DIR/.profile
 echo 'export GOPATH=$HOME_DIR/go' >> $HOME_DIR/.profile
 echo 'export GOBIN=$HOME_DIR/go/bin' >> $HOME_DIR/.profile
@@ -93,7 +93,7 @@ EOF
 cd $HOME_DIR/.pocket/config/ && envsubst <<< "$CHAINS_JSON" > "chains.json"
 
 # 8. create a pocket account and set validator address
-
+cd $HOME_DIR
 # NOTE: this creates an account with a blank/empty passphrase
 printf '\n\n' | pocket accounts create
 
