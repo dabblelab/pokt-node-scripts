@@ -37,15 +37,14 @@ else
 	exit 2
 fi
 
-# 3. install go lang
+
 # sudo su - pocket;
 
-#================================will work on using this install method had issues with this installation========================
-# wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
-# tar -xvf go1.17.7.linux-amd64.tar.gz
-
 echo "$pass" | sudo -S  -i -u pocket
-echo "$pass" | yes | sudo -S apt  install golang-go
+
+# 3. install go lang
+echo "$pass" | sudo wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
+echo "$pass" | sudo tar -xvf go1.17.7.linux-amd64.tar.gz
 
 echo 'export PATH=$PATH:$HOME/go/bin' >> ~/.profile
 echo 'export GOPATH=$HOME/go' >> ~/.profile
