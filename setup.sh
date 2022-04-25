@@ -48,9 +48,9 @@ cd $HOME_DIR
 echo "$pass" | sudo wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
 echo "$pass" | sudo tar -xvf go1.17.7.linux-amd64.tar.gz
 
-echo 'export PATH=$PATH:$HOME_DIR/go/bin' >> ~/.profile
-echo 'export GOPATH=$HOME_DIR/go' >> ~/.profile
-echo 'export GOBIN=$HOME_DIR/go/bin' >> ~/.profile
+echo 'export PATH=$PATH:$HOME_DIR/go/bin' >> $HOME_DIR/.profile
+echo 'export GOPATH=$HOME_DIR/go' >> $HOME_DIR/.profile
+echo 'export GOBIN=$HOME_DIR/go/bin' >> $HOME_DIR/.profile
 source $HOME_DIR/.profile
 go version
 
@@ -59,7 +59,7 @@ mkdir -p $GOPATH/src/github.com/pokt-network
 cd $GOPATH/src/github.com/pokt-network
 git clone https://github.com/pokt-network/pocket-core.git
 cd pocket-core
-git checkout tags/RC-0.7.1.1
+git checkout tags/RC-0.8.2
 go build -o $GOPATH/bin/pocket $GOPATH/src/github.com/pokt-network/pocket-core/app/cmd/pocket_core/main.go
 pocket version
 
