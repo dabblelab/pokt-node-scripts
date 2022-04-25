@@ -104,7 +104,6 @@ PRIVATE_KEY=$(printf '\n\n\n' | pocket accounts export --path . $ACCOUNT)
 printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
 
 echo "Acccount: $ACCOUNT"
-exit
 
 # 9. set ulimits
 ulimit -Sn 16384
