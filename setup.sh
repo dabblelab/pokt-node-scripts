@@ -106,6 +106,9 @@ ACCOUNTS=$(pocket accounts list)
 ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
 PRIVATE_KEY=$(printf '\n\n\n' | pocket accounts export --path . $ACCOUNT)
 
+#================================Assign pocket permission && sudo group to files in $HOME_DIR/.pocket/======================
+cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket ~/.pocket/ && echo "$pass" | sudo chgrp -R sudo ~/.pocket/
+
 # -- set account as validator address --
 printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
 
