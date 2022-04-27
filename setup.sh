@@ -102,24 +102,9 @@ cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | 
 cd $HOME_DIR/.pocket
 
 #================================create pocket account withing pocket user > .pocket/=======================================
-# sudo -i -u pocket bash << EOF
-# cd $HOME_DIR/.pocket
-# ls
-# printf '\n\n' | pocket accounts create
-
-# echo 
-# # -- get account and export private key --
-# ACCOUNTS=$(pocket accounts list)
-
-# echo "accounts log: $ACCOUNTS"
-# ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
-
-# PRIVATE_KEY=$(printf '\n\n\n' | accounts export --path .  $ACCOUNT)
-
-# # -- set account as validator address --
-# printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
-# EOF
-
+sudo -i -u pocket bash << EOF
+cd $HOME_DIR/.pocket
+ls
 printf '\n\n' | pocket accounts create
 
 echo 
@@ -133,6 +118,8 @@ PRIVATE_KEY=$(printf '\n\n\n' | accounts export --path .  $ACCOUNT)
 
 # -- set account as validator address --
 printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
+EOF
+
 echo "Acccount: $ACCOUNT"
 
 # 9. set ulimits
