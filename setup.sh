@@ -105,11 +105,11 @@ cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | 
 
 echo "current home dir $HOME_DIR"
 # NOTE: this creates an account with a blank/empty passphrase
-echo "$pass" | sudo echo printf '\n\n' | pocket accounts create
+su -c "echo printf '\n\n' | pocket accounts create" pocket
 
 # -- get account and export private key --
-ACCOUNT=$(echo "$pass" | sudo echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
-PRIVATE_KEY=$(echo "$pass" | sudo printf '\n\n\n' | pocket accounts export --path . $ACCOUNT)
+ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
+PRIVATE_KEY=$(printf '\n\n\n' | pocket accounts export --path . $ACCOUNT)
 
 # -- set account as validator address --
 printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
