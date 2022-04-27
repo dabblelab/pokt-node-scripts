@@ -100,10 +100,17 @@ cd $HOME_DIR/.pocket && echo "$pass" | sudo chown -R pocket config/ && echo "$pa
 cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | sudo chgrp -R sudo .pocket/
 
 cd $HOME_DIR/.pocket
+sudo -i -u pocket bash << EOF
+echo "In"
+whoami
+cd $HOME_DIR/.pocket
+ls
 
+EOF
+echo "Out"
+whoami
 # 8. create a pocket account and set validator address
 # NOTE: this creates an account with a blank/empty passphrase
-su -c 'echo I am $(whoami)'
 printf '\n\n' | pocket accounts create
 
 echo 
