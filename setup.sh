@@ -95,11 +95,11 @@ cd $HOME_DIR/.pocket/config/ && envsubst <<< "$CHAINS_JSON" > "chains.json"
 #================================Assign pocket permission && sudo group to files in $HOME_DIR/.pocket/config/======================
 cd $HOME_DIR/.pocket && echo "$pass" | sudo chown -R pocket config/ && echo "$pass" | sudo chgrp -R sudo config/
 
-cd $HOME_DIR/.pocket
+# cd $HOME_DIR/.pocket
 # 8. create a pocket account and set validator address
-cd $HOME_DIR
+# cd $HOME_DIR
 # NOTE: this creates an account with a blank/empty passphrase
-printf '\n\n' | pocket accounts create
+cd $HOME_DIR/.pocket && printf '\n\n' | pocket accounts create
 
 #================================Assign pocket permission && sudo group to files in $HOME_DIR/.pocket/======================
 cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | sudo chgrp -R sudo .pocket/
