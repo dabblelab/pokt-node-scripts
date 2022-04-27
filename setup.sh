@@ -48,10 +48,10 @@ cd $HOME_DIR
 echo "$pass" | sudo wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
 echo "$pass" | sudo tar -xvf go1.17.7.linux-amd64.tar.gz
 echo "$pass" | sudo chown -R "$USERNAME" $HOME_DIR
-echo "$pass" | sudo echo "export PATH=$PATH:$HOME_DIR/go/bin" >> $HOME_DIR/.profile
-echo "$pass" | sudo echo "export GOPATH=$HOME_DIR/go" >> $HOME_DIR/.profile
-echo "$pass" | sudo echo "export GOBIN=$HOME_DIR/go/bin" >> $HOME_DIR/.profile
-echo "$pass" | sudo source $HOME_DIR/.profile
+echo "export PATH=$PATH:$HOME_DIR/go/bin" >> $HOME_DIR/.profile
+echo "export GOPATH=$HOME_DIR/go" >> $HOME_DIR/.profile
+echo "export GOBIN=$HOME_DIR/go/bin" >> $HOME_DIR/.profile
+source $HOME_DIR/.profile
 go version
 
 # 4. install pocket core
@@ -104,7 +104,7 @@ cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | 
 
 echo "current home dir $HOME_DIR"
 # NOTE: this creates an account with a blank/empty passphrase
-runuser - pocket echo printf '\n\n' | pocket accounts create
+echo printf '\n\n' | pocket accounts create
 
 # -- get account and export private key --
 ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
