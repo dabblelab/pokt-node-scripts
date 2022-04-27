@@ -100,6 +100,7 @@ cd $HOME_DIR/.pocket && echo "$pass" | sudo chown -R pocket config/ && echo "$pa
 # cd $HOME_DIR
 # NOTE: this creates an account with a blank/empty passphrase
 pwd
+echo "$pass" | sudo chown -R pocket pwd && echo "$pass" | sudo chgrp -R  sudo pwd
 echo "creating account"
 cd $HOME_DIR/.pocket && printf '\n\n' | pocket accounts create
 echo "done creating account"
