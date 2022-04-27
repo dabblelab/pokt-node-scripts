@@ -102,7 +102,7 @@ cd $HOME_DIR
 printf '\n\n' | pocket accounts create
 
 #================================Assign pocket permission && sudo group to files in $HOME_DIR/.pocket/======================
-echo "$pass" | sudo chown -R pocket $HOME_DIR/ && echo "$pass" | sudo chgrp -R sudo $HOME_DIR/
+cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | sudo chgrp -R sudo .pocket/
 
 # -- get account and export private key --
 ACCOUNTS=$(pocket accounts list)
