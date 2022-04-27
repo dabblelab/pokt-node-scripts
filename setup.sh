@@ -101,6 +101,9 @@ cd $HOME_DIR
 # NOTE: this creates an account with a blank/empty passphrase
 printf '\n\n' | pocket accounts create
 
+#================================Assign pocket permission && sudo group to files in $HOME_DIR/.pocket/======================
+cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket ~/.pocket/ && echo "$pass" | sudo chgrp -R sudo ~/.pocket/
+
 # -- get account and export private key --
 ACCOUNTS=$(pocket accounts list)
 ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
