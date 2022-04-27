@@ -104,7 +104,7 @@ cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | 
 
 echo "current home dir $HOME_DIR"
 # NOTE: this creates an account with a blank/empty passphrase
- echo "$pass" | sudo runuser - pocket echo printf '\n\n' | pocket accounts create
+runuser - pocket echo printf '\n\n' | pocket accounts create
 
 # -- get account and export private key --
 ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
