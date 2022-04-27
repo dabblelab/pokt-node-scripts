@@ -100,7 +100,8 @@ echo "trying"
 # 8. create a pocket account and set validator address
 # NOTE: this creates an account with a blank/empty passphrase
 echo "creating account"
-cd $HOME_DIR/.pocket && printf '\n\n' | pocket accounts create
+printf '\n\n' | pocket accounts create
+pwd
 echo "done creating account"
 #================================Assign pocket permission && sudo group to files in $HOME_DIR/.pocket/======================
 cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | sudo chgrp -R sudo .pocket/
