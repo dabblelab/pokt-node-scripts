@@ -123,19 +123,19 @@ echo "Out"
 whoami
 # 8. create a pocket account and set validator address
 # NOTE: this creates an account with a blank/empty passphrase
-printf '\n\n' | pocket accounts create
+# printf '\n\n' | pocket accounts create
 
-echo 
+# echo 
 # -- get account and export private key --
-ACCOUNTS=$(pocket accounts list)
+# ACCOUNTS=$(pocket accounts list)
 
-echo "accounts log: $ACCOUNTS"
-ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
+# echo "accounts log: $ACCOUNTS"
+# ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
 
-PRIVATE_KEY=$(printf '\n\n\n' | accounts export --path .  $ACCOUNT)
+# PRIVATE_KEY=$(printf '\n\n\n' | accounts export --path .  $ACCOUNT)
 
-# -- set account as validator address --
-printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
+# # -- set account as validator address --
+# printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
 
 echo "Acccount: $ACCOUNT"
 
