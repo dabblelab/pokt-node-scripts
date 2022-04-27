@@ -103,8 +103,8 @@ cd $HOME_DIR/.pocket
 
 # 8. create a pocket account and set validator address
 # NOTE: this creates an account with a blank/empty passphrase
-
-printf '\n\n' | su -c 'pocket accounts create' pocket
+su -c 'echo I am $(whoami)'
+printf '\n\n' | pocket accounts create
 
 echo 
 # -- get account and export private key --
