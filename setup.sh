@@ -98,6 +98,8 @@ cd $HOME_DIR/.pocket && echo "$pass" | sudo chown -R pocket config/ && echo "$pa
 cd $HOME_DIR/.pocket
 # 8. create a pocket account and set validator address
 cd $HOME_DIR
+
+cd $HOME_DIR/.pocket && echo "$pass" | sudo chown -R pocket /pocket/go/
 # NOTE: this creates an account with a blank/empty passphrase
 printf '\n\n' | pocket accounts create
 
