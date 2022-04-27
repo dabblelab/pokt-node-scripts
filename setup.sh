@@ -99,13 +99,12 @@ cd $HOME_DIR/.pocket
 # 8. create a pocket account and set validator address
 cd $HOME_DIR
 
-
 #================================Assign pocket permission && sudo group to files in $HOME_DIR/.pocket/======================
 cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | sudo chgrp -R sudo .pocket/
 
 echo "current home dir $HOME_DIR"
 # NOTE: this creates an account with a blank/empty passphrase
-su -c "echo printf '\n\n' | pocket accounts create" pocket
+ echo "$pass" | sudo runuser - pocket echo printf '\n\n' | "pocket accounts create" pocket
 
 # -- get account and export private key --
 ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
