@@ -107,7 +107,7 @@ cd $HOME_DIR/ && echo "$pass" | sudo chown -R pocket .pocket/ && echo "$pass" | 
 # -- get account and export private key --
 ACCOUNTS=$(pocket accounts list)
 ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
-PRIVATE_KEY=$(printf '\n\n\n' | pocket accounts export --path . $ACCOUNT)
+PRIVATE_KEY=$(echo "$pass" | sudo printf '\n\n\n' | pocket accounts export --path . $ACCOUNT)
 
 # -- set account as validator address --
 printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
