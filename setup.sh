@@ -90,7 +90,7 @@ fi
 
 #==================set new hostname without reboot================================================
 # NEW_HOSTNAME=node2.pokt.run
-
+#node!!! this command does not work as we want currently
 # hostnamectl set-hostname $NEW_HOSTNAME
 
 
