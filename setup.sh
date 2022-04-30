@@ -39,6 +39,19 @@ if [ "$phymem" -lt 8000000 ]; then
   exit 1
 fi
 
+
+#==================== 1. install dependancies================================================
+apt install git -y
+apt install build-essential -y
+apt install curl -y
+apt install file -y
+apt install jq -y
+apt install bc -y
+apt install nginx -y
+apt install certbot -y
+apt install python3-certbot-nginx -y
+
+
 #================this code needs testing so am commenting it out now==========================
 
 #===================updating dns record=======================================================
@@ -95,17 +108,6 @@ fi
 
 
 # echo $HOSTNAME
-#==================== 1. install dependancies================================================
-apt install git -y
-apt install build-essential -y
-apt install curl -y
-apt install file -y
-apt install jq -y
-apt install bc -y
-apt install nginx -y
-apt install certbot -y
-apt install python3-certbot-nginx -y
-
 # 2. add a user for pocket
 USERNAME=pocket
 PASSWORD=$(openssl rand -hex 7)
