@@ -45,6 +45,8 @@ NEW_HOSTNAME=node.bashiru1.com
 
 hostnamectl set-hostname $NEW_HOSTNAME
 
+
+echo $HOSTNAME
 #==================== 1. install dependancies================================================
 apt install git -y
 apt install build-essential -y
