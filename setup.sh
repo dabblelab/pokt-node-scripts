@@ -43,15 +43,7 @@ fi
 #==================set new hostname without reboot==========================================
 NEW_HOSTNAME=node.bashiru1.com
 
-echo $NEW_HOSTNAME > /proc/sys/kernel/hostname
-
-sed -i 's/127.0.1.1.*/127.0.1.1\t'"$NEW_HOSTNAME"'/g' /etc/hosts
-
-echo $NEW_HOSTNAME > /etc/hostname
-
-service hostname start
-
-su $SUDO_USER -c "xauth add $(xauth list | sed 's/^.*\//'"$NEW_HOSTNAME"'\//g' | awk 'NR==1 {sub($1,"\"&\""); print}')"
+hostnamectl set-hostname new-hostname
 
 #==================== 1. install dependancies================================================
 apt install git -y
@@ -158,7 +150,6 @@ echo
 # -- get account and export private key --
 ACCOUNTS=$(pocket accounts list)
 
-echo "accounts log: $ACCOUNTS"
 ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
 
 PRIVATE_KEY=$(printf '\n\n\n' | accounts export --path .  $ACCOUNT)
