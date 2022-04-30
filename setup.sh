@@ -43,7 +43,7 @@ fi
 #==================set new hostname without reboot==========================================
 NEW_HOSTNAME=node.bashiru1.com
 
-hostnamectl set-hostname new-hostname
+hostnamectl set-hostname $NEW_HOSTNAME
 
 #==================== 1. install dependancies================================================
 apt install git -y
