@@ -14,7 +14,21 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+#==========================================check system type and version================================
 
+os_type="$(lsb_release -si 2>/dev/null)"
+if [ "$os_type" != "Ubuntu" ]; then
+  echo "This script Only supports Ubuntu"
+  exit 1
+fi
+
+if [ "$os_type" = "Ubuntu" ]; then
+  os_ver="$(lsb_release -sr)"
+  if [ "$os_ver" != "20.04" ]; then
+    echo "Only supports Ubuntu 20.04"
+    exit 1
+  fi
+fi
 #==================== 1. install dependancies================================================
 apt install git -y
 apt install build-essential -y
