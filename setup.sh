@@ -6,7 +6,16 @@
 # echo "node1.pokt.run" > /etc/hostname
 # After setting the hostname, reboot and ssh back into the node before running the following.
 
-# 1. install dependancies
+#=================Checking root environment================================================
+
+#======================== Make sure only root can run our script============================
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
+
+#==================== 1. install dependancies================================================
 apt install git -y
 apt install build-essential -y
 apt install curl -y
