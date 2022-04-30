@@ -39,14 +39,62 @@ if [ "$phymem" -lt 8000000 ]; then
   exit 1
 fi
 
+#================this code needs testing so am commenting it out now==========================
 
-#==================set new hostname without reboot==========================================
-NEW_HOSTNAME=node.bashiru1.com
+#===================updating dns record=======================================================
+# zone=dabblelab.com
 
-hostnamectl set-hostname $NEW_HOSTNAME
+# dnsrecord=pokt.dabblelab.com
+
+# #=========creds=============================================================================
+# cloudflare_auth_email=dabblelab@cloudflare.com
+# cloudflare_auth_key=--------------------------
+
+# #================== Get the current external IP address=====================================
+# ip=$(curl -s -X GET https://checkip.amazonaws.com)
+
+# #===================check to see if record is already updated===============================
+# if host $dnsrecord 1.1.1.1 | grep "has address" | grep "$ip"; then
+#   echo "$dnsrecord is currently set to $ip; no changes needed"
+#   exit
+#   #=====script might not need to exit entirely but proceed with non exit code===============
+# fi
 
 
-echo $HOSTNAME
+# #==================== get the zone id for the requested zone================================
+# zoneid=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=$zone&status=active" \
+#   -H "X-Auth-Email: $cloudflare_auth_email" \
+#   -H "X-Auth-Key: $cloudflare_auth_key" \
+#   -H "Content-Type: application/json" | jq -r '{"result"}[] | .[0] | .id')
+
+# echo "Zoneid for $zone is $zoneid"
+
+
+# #=====================get the dns record id===================================================
+# dnsrecordid=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records?type=A&name=$dnsrecord" \
+#   -H "X-Auth-Email: $cloudflare_auth_email" \
+#   -H "X-Auth-Key: $cloudflare_auth_key" \
+#   -H "Content-Type: application/json" | jq -r '{"result"}[] | .[0] | .id')
+
+# echo "DNSrecordid for $dnsrecord is $dnsrecordid"
+
+
+# #======================================= update the record======================================
+# curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records/$dnsrecordid" \
+#   -H "X-Auth-Email: $cloudflare_auth_email" \
+#   -H "X-Auth-Key: $cloudflare_auth_key" \
+#   -H "Content-Type: application/json" \
+#   --data "{\"type\":\"A\",\"name\":\"$dnsrecord\",\"content\":\"$ip\",\"ttl\":1,\"proxied\":false}" | jq
+
+
+
+#==================set new hostname without reboot================================================
+# NEW_HOSTNAME=node2.pokt.run
+
+# hostnamectl set-hostname $NEW_HOSTNAME
+
+
+# echo $HOSTNAME
 #==================== 1. install dependancies================================================
 apt install git -y
 apt install build-essential -y
