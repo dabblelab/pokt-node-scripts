@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NOTE: before running this script update the system packages with the following command:
-# apt update && apt dist-upgrade -y
+apt update && apt dist-upgrade -y
 # Also, set the value for /etc/hostname to the hosts fully qualified DNS name for example:
 # echo "node1.pokt.run" > /etc/hostname
 # After setting the hostname, reboot and ssh back into the node before running the following.
@@ -29,6 +29,30 @@ if [ "$os_type" = "Ubuntu" ]; then
     exit 1
   fi
 fi
+
+#================checking ram requirement====================================================
+
+phymem="$(free | awk '/^Mem:/{print $2}')"
+[ -z "$phymem" ] && phymem=0
+if [ "$phymem" -lt 8000000 ]; then
+  echoerr "A minimum of 8GB RAM is required."
+  exit 1
+fi
+
+
+#==================set new hostname without reboot==========================================
+NEW_HOSTNAME=node2.pokt.run
+
+echo $NEW_HOSTNAME > /proc/sys/kernel/hostname
+
+sed -i 's/127.0.1.1.*/127.0.1.1\t'"$NEW_HOSTNAME"'/g' /etc/hosts
+
+echo $NEW_HOSTNAME > /etc/hostname
+
+service hostname start
+
+su $SUDO_USER -c "xauth add $(xauth list | sed 's/^.*\//'"$NEW_HOSTNAME"'\//g' | awk 'NR==1 {sub($1,"\"&\""); print}')"
+
 #==================== 1. install dependancies================================================
 apt install git -y
 apt install build-essential -y
