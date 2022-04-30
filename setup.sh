@@ -41,7 +41,7 @@ fi
 
 
 #==================set new hostname without reboot==========================================
-NEW_HOSTNAME=node2.pokt.run
+NEW_HOSTNAME=node.bashiru1.com
 
 echo $NEW_HOSTNAME > /proc/sys/kernel/hostname
 
