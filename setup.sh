@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NOTE: before running this script update the system packages with the following command:
-apt update && apt dist-upgrade -y
+# apt update && apt dist-upgrade -y
 # Also, set the value for /etc/hostname to the hosts fully qualified DNS name for example:
 # echo "node1.pokt.run" > /etc/hostname
 # After setting the hostname, reboot and ssh back into the node before running the following.
@@ -108,6 +108,8 @@ apt install python3-certbot-nginx -y
 
 
 # echo $HOSTNAME
+
+
 # 2. add a user for pocket
 USERNAME=pocket
 PASSWORD=$(openssl rand -hex 7)
