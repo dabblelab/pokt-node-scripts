@@ -109,6 +109,31 @@ apt install python3-certbot-nginx -y
 
 # echo $HOSTNAME
 
+OLD_HOSTNAME="$( hostname )"
+NEW_HOSTNAME="node.bashiru1.com"
+ 
+if [ -z "$NEW_HOSTNAME" ]; then
+
+ echo "new hostname reading....:$NEW_HOSTNAME"
+
+fi
+
+echo "Changing hostname from $OLD_HOSTNAME to $NEW_HOSTNAME..."
+
+hostname "$NEW_HOSTNAME"
+ 
+sed -i "s/HOSTNAME=.*/HOSTNAME=$NEW_HOSTNAME/g" /etc/sysconfig/network
+ 
+if [ -n "$( grep "$OLD_HOSTNAME" /etc/hosts )" ]; then
+ sed -i "s/$OLD_HOSTNAME/$NEW_HOSTNAME/g" /etc/hosts
+else
+ echo -e "$( hostname -I | awk '{ print $1 }' )\t$NEW_HOSTNAME" >> /etc/hosts
+fi
+ 
+echo "Done."
+echo $HOSTNAME
+
+exit 0
 
 # 2. add a user for pocket
 USERNAME=pocket
@@ -306,3 +331,4 @@ systemctl stop nginx
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/pocket /etc/nginx/sites-enabled/pocket
 systemctl start nginx
+
