@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # NOTE: before running this script update the system packages with the following command:
-apt update && apt dist-upgrade -y
+screen apt update & 
+apt dist-upgrade -y
+wait
 # Also, set the value for /etc/hostname to the hosts fully qualified DNS name for example:
 # echo "node1.pokt.run" > /etc/hostname
 # After setting the hostname, reboot and ssh back into the node before running the following.
