@@ -9,14 +9,6 @@ normal=$( tput sgr 0 );
 
 # Defining Header
 HEADER="
-ubuntu-update.sh Copyright (C) 2018 Ted LeRoy
-Easily update, upgrade, and clean up your Ubuntu system with this bash script.
-This program comes with ABSOLUTELY NO WARRANTY see
-https://github.com/TedLeRoy/ubuntu-update.sh/blob/master/LICENSE.md
-This is free software, and you are welcome to redistribute it
-under certain conditions.
-See https://github.com/TedLeRoy/ubuntu-update.sh/blob/master/LICENSE.md
-for details."
 
 # Defining USAGE Variable to print usage for -h or undefined args
 
