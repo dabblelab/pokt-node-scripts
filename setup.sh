@@ -3,32 +3,21 @@
 # NOTE: before running this script update the system packages with the following command:
 # apt update & apt dist-upgrade -y
 
+echo -e "
+\e[32m#############################
+#   Starting Full Upgrade   #
+#############################\e[0m
+"
 apt-get update | tee /tmp/update-output.txt
-
 
 apt-get upgrade -y | tee -a /tmp/update-output.txt
 
+echo -e "
+\e[32m#############################
+#  Full Upgrade Completed  #
+#############################\e[0m
+"
 
-# if [[ ! -n $dOff ]]; then
-#     echo -e "
-# \e[32m#############################
-# #   Starting Full Upgrade   #
-# #############################\e[0m
-# "
-# apt-get dist-upgrade -y | tee -a /tmp/update-output.txt
-# echo -e "
-# \e[32m#############################
-# #   Full Upgrade Complete   #
-# #############################\e[0m
-# "
-# fi
-
-# if [[ ! -n $rOff ]]; then
-#     echo -e "
-# \e[32m#############################
-# #    Starting Apt Clean     #
-# #############################\e[0m
-# "
 apt-get clean | tee -a /tmp/update-output.txt
 echo -e "
 \e[32m#############################
