@@ -25,7 +25,6 @@ echo -e "
 #############################\e[0m
 "
 
-
 # Also, set the value for /etc/hostname to the hosts fully qualified DNS name for example:
 # echo "node1.pokt.run" > /etc/hostname
 # After setting the hostname, reboot and ssh back into the node before running the following.
@@ -156,7 +155,11 @@ fi
  
 echo "Done."
 echo $HOSTNAME
-
+echo -e "
+\e[32m#############################
+#HOSTNAME HAS BEEN SET PLEASE REBOOT AND RUN THE SCRIPT AGAIN!!!!!!!!!!!!#
+#############################\e[0m
+"
 exit 0
 
 # 2. add a user for pocket
