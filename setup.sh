@@ -127,13 +127,14 @@ apt install python3-certbot-nginx -y
 #==================set new hostname without reboot================================================
 # NEW_HOSTNAME=node2.pokt.run
 #note!!! this command does not work as we want currently
-hostnamectl set-hostname node.bashiru1.com
+# hostnamectl set-hostname node.bashiru1.com
 
 # echo $HOSTNAME
 
 echo "node.bashiru1.com" > /etc/hostname
 
 echo "Done."
+
 echo $HOSTNAME
 echo -e "
 \e[32m#############################
