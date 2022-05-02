@@ -74,7 +74,7 @@ apt install nginx -y
 apt install certbot -y
 apt install python3-certbot-nginx -y
 
-
+NEW_HOSTNAME=node2.bashiru1.com
 #================this code needs testing so am commenting it out now==========================
 
 #===================updating dns record=======================================================
@@ -127,18 +127,11 @@ apt install python3-certbot-nginx -y
 #==================set new hostname without reboot================================================
 # NEW_HOSTNAME=node2.pokt.run
 #note!!! this command does not work as we want currently
-hostnamectl set-hostname node2.bashiru1.com
+hostnamectl set-hostname $NEW_HOSTNAME
 
-echo "Done."
-sleep 4
+echo "Done setting hostname. proceeding======================================================================================="
 
-echo $HOSTNAME
-echo -e "
-\e[32m#############################
-#HOSTNAME HAS BEEN SET PLEASE REBOOT AND RUN THE SCRIPT AGAIN!!!!!!!!!!!!#
-#############################\e[0m
-"
-exit 0
+
 # 2. add a user for pocket
 USERNAME=pocket
 PASSWORD=$(openssl rand -hex 7)
@@ -281,7 +274,7 @@ systemctl enable pocket.service
 systemctl start pocket.service
 
 # 12. get an ssl cerfiticate
-certbot --nginx --domain $HOSTNAME --register-unsafely-without-email --no-redirect --agree-tos
+certbot --nginx --domain $NEW_HOSTNAME --register-unsafely-without-email --no-redirect --agree-tos
 
 # 13. configure nginx proxy
 export NGINX_CONFIG=$(cat <<EOF
@@ -303,14 +296,14 @@ server {
     listen [::]:8081 ssl;
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
-    server_name $HOSTNAME;
+    server_name $NEW_HOSTNAME;
     location / {
         try_files $uri $uri/ =404;
     }
     listen [::]:443 ssl ipv6only=on;
     listen 443 ssl;
-    ssl_certificate /etc/letsencrypt/live/$HOSTNAME/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/$HOSTNAME/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/$NEW_HOSTNAME/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$NEW_HOSTNAME/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
     access_log /var/log/nginx/reverse-access.log;
@@ -336,3 +329,9 @@ rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/pocket /etc/nginx/sites-enabled/pocket
 systemctl start nginx
 
+echo -e "
+\e[32m#############################
+#WELCOME HAPPY NODE RUNNER!!!!!!!!!!!!#
+#FOR EVERYTHING TO WORK REBOOT THE SERVER#
+#############################\e[0m
+"
