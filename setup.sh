@@ -160,7 +160,6 @@ echo -e "
 #HOSTNAME HAS BEEN SET PLEASE REBOOT AND RUN THE SCRIPT AGAIN!!!!!!!!!!!!#
 #############################\e[0m
 "
-exit 0
 
 # 2. add a user for pocket
 USERNAME=pocket
