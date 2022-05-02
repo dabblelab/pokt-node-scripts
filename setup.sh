@@ -74,7 +74,7 @@ apt install nginx -y
 apt install certbot -y
 apt install python3-certbot-nginx -y
 
-NEW_HOSTNAME=node2.bashiru1.com
+NEW_HOSTNAME=node.bashiru1.com
 #================this code needs testing so am commenting it out now==========================
 
 #===================updating dns record=======================================================
