@@ -57,7 +57,7 @@ fi
 phymem="$(free | awk '/^Mem:/{print $2}')"
 [ -z "$phymem" ] && phymem=0
 if [ "$phymem" -lt 8000000 ]; then
-  echoerr "A minimum of 8GB RAM is required."
+  echo "A minimum of 8GB RAM is required."
   exit 1
 fi
 
@@ -73,7 +73,7 @@ apt install nginx -y
 apt install certbot -y
 apt install python3-certbot-nginx -y
 
-NEW_HOSTNAME=pokt.erogana.com
+NEW_HOSTNAME=yourdomainname
 #================this code needs testing so am commenting it out now==========================
 
 #===================updating dns record=======================================================
