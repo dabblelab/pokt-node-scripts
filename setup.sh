@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # NOTE: before running this script update the system packages with the following command:
-# apt update & apt dist-upgrade -y
 
 echo -e "
 \e[32m#############################
@@ -74,7 +73,7 @@ apt install nginx -y
 apt install certbot -y
 apt install python3-certbot-nginx -y
 
-NEW_HOSTNAME=node.bashiru1.com
+NEW_HOSTNAME=pokt.erogana.com
 #================this code needs testing so am commenting it out now==========================
 
 #===================updating dns record=======================================================
