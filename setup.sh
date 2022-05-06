@@ -73,7 +73,7 @@ apt install nginx -y
 apt install certbot -y
 apt install python3-certbot-nginx -y
 
-NEW_HOSTNAME=pokt.erogana.com
+NEW_HOSTNAME=yourdomain
 #================this code needs testing so am commenting it out now==========================
 
 #===================updating dns record=======================================================
