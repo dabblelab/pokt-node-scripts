@@ -73,7 +73,7 @@ apt install nginx -y
 apt install certbot -y
 apt install python3-certbot-nginx -y
 
-NEW_HOSTNAME=yourdomain
+# NEW_HOSTNAME=yourdomain
 #================this code needs testing so am commenting it out now==========================
 
 #===================updating dns record=======================================================
@@ -126,9 +126,9 @@ NEW_HOSTNAME=yourdomain
 #==================set new hostname without reboot================================================
 # NEW_HOSTNAME=node2.pokt.run
 #note!!! this command does not work as we want currently
-hostnamectl set-hostname $NEW_HOSTNAME
+# hostnamectl set-hostname $NEW_HOSTNAME
 
-echo "Done setting hostname. proceeding======================================================================================="
+# echo "Done setting hostname. proceeding======================================================================================="
 
 
 # 2. add a user for pocket
@@ -273,7 +273,7 @@ systemctl enable pocket.service
 systemctl start pocket.service
 
 # 12. get an ssl cerfiticate
-certbot --nginx --domain $NEW_HOSTNAME --register-unsafely-without-email --no-redirect --agree-tos
+certbot --nginx --domain $HOSTNAME --register-unsafely-without-email --no-redirect --agree-tos
 
 # 13. configure nginx proxy
 export NGINX_CONFIG=$(cat <<EOF
@@ -295,14 +295,14 @@ server {
     listen [::]:8081 ssl;
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
-    server_name $NEW_HOSTNAME;
+    server_name $HOSTNAME;
     location / {
         try_files $uri $uri/ =404;
     }
     listen [::]:443 ssl ipv6only=on;
     listen 443 ssl;
-    ssl_certificate /etc/letsencrypt/live/$NEW_HOSTNAME/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/$NEW_HOSTNAME/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/$HOSTNAME/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$HOSTNAME/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
     access_log /var/log/nginx/reverse-access.log;
@@ -334,3 +334,4 @@ echo -e "
 #FOR EVERYTHING TO WORK REBOOT THE SERVER#
 #############################\e[0m
 "
+
