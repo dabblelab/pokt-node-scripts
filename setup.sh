@@ -222,25 +222,27 @@ echo "after entering user pocket in the environment"
 ls
 printf '\n\n' | pocket accounts create
 
-echo 
+echo
 # -- get account and export private key --
 pocket accounts list > key
 
 EOF
-echo"checking something here"
+echo "checking something here"
 
 ACCOUNT=$(cat key | head -1 | cut -d' ' -f2)
 
 pwd
 sudo -i -u pocket bash << EOF
 
-# -- set account as validator address ----------------
+# -- set account as validator address --
 printf '\n\n' | pocket accounts set-validator $ACCOUNT
 
-echo "after checking something"
-PRIVATE_KEY=$(printf '\n\n\n' | pocket accounts export --path .  $ACCOUNT)
+
+printf '\n\n\n' | pocket accounts export --path .  $ACCOUNT
 
 EOF
+
+echo 
 
 echo "Acccount: $ACCOUNT"
 
