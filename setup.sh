@@ -23,7 +23,6 @@ echo -e "
 #     Apt Clean Complete    #
 #############################\e[0m
 "
-
 # Also, set the value for /etc/hostname to the hosts fully qualified DNS name for example:
 # echo "node1.pokt.run" > /etc/hostname
 # After setting the hostname, reboot and ssh back into the node before running the following.
@@ -218,19 +217,29 @@ cd $HOME_DIR/.pocket
 #================================create pocket account withing pocket user > .pocket/=======================================
 sudo -i -u pocket bash << EOF
 cd $HOME_DIR/.pocket
+pwd
+echo "after entering user pocket in the environment"
 ls
 printf '\n\n' | pocket accounts create
 
 echo 
 # -- get account and export private key --
-ACCOUNTS=$(pocket accounts list)
+pocket accounts list > key
 
-ACCOUNT=$(echo "${ACCOUNTS}" | head -1 | cut -d' ' -f2)
+EOF
+echo"checking something here"
 
+ACCOUNT=$(cat key | head -1 | cut -d' ' -f2)
+
+pwd
+sudo -i -u pocket bash << EOF
+
+# -- set account as validator address ----------------
+printf '\n\n' | pocket accounts set-validator $ACCOUNT
+
+echo "after checking something"
 PRIVATE_KEY=$(printf '\n\n\n' | pocket accounts export --path .  $ACCOUNT)
 
-# -- set account as validator address --
-printf '\n\n\n' | pocket accounts set-validator $ACCOUNT
 EOF
 
 echo "Acccount: $ACCOUNT"
