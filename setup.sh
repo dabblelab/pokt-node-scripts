@@ -238,9 +238,11 @@ sudo -i -u pocket bash << EOF
 printf '\n\n' | pocket accounts set-validator $ACCOUNT
 
 
-PRIVATE_KEY=$(printf '\n\n\n' | pocket accounts export --path .  $ACCOUNT)
+printf '\n\n\n' | pocket accounts export --path .  $ACCOUNT
 
 EOF
+
+echo 
 
 echo "Acccount: $ACCOUNT"
 
